@@ -10,7 +10,7 @@ const swaggerDocument = require('./swagger');
 const couponRoutes =require('./routes/coupon.routes')
 const rewardCouponRoutes =require('./routes/rewardCoupon.route')
 const app = express();
-const allowedOrigins = ["http://20.204.134.0", "http://localhost:3010","http://digibill.relaxofootwear.com","https://digibill.relaxofootwear.com"];
+const allowedOrigins = ["http://20.204.134.0", "http://localhost:3010","http://digibill.relaxofootwear.com","https://digibill.relaxofootwear.com",  "https://relaxo-fe.vercel.app"  ];
 
 app.use(cors({
   origin: function (origin, callback) {
@@ -27,6 +27,9 @@ app.use(cors({
 app.use(express.json());
 
 
+app.get('/', (req, res) => {
+  res.send('Welcome to the Relaxo Backend Server!');
+});
 
 // ✅ Swagger should be mounted before protected routes
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
