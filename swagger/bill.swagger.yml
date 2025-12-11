@@ -1,0 +1,96 @@
+paths:
+  /api/bills:
+    post:
+      summary: Create a new bill
+      tags:
+        - Bills
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Bill"
+      responses:
+        "201":
+          description: Bill successfully created
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Bill"
+        "500":
+          description: Server error
+
+    get:
+      summary: Get all bills (admin)
+      tags:
+        - Bills
+      responses:
+        "200":
+          description: List of all bills
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Bill"
+
+  /api/bills/{phone}:
+    get:
+      summary: Get bills by customer phone number
+      tags:
+        - Bills
+      parameters:
+        - in: path
+          name: phone
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Bills for the specified phone number
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Bill"
+        "500":
+          description: Server error
+
+components:
+  schemas:
+    Bill:
+      type: object
+      properties:
+        sms:
+          type: string
+        email:
+          type: string
+        customerData:
+          type: object
+        loyaltyData:
+          type: object
+        storeData:
+          type: object
+        companyData:
+          type: object
+        transactionalData:
+          type: object
+        paymentData:
+          type: object
+        billAmountData:
+          type: object
+        taxesData:
+          type: object
+        billFooterData:
+          type: object
+        productsData:
+          type: array
+          items:
+            type: object
+      required:
+        - customerData
+        - storeData
+        - transactionalData
+        - paymentData
+        - productsData
